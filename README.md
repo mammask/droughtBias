@@ -70,7 +70,7 @@ In the following sections we share analytical outputs that further support the e
 ##### SPI(9)
 ![Comparison of accumulated precipitation (SPI-9)](outputs/compareAccumDens_station_V3216_scale_9.jpg)
 ##### SPI(12)
-![Comparison of accumulated precipitation (SPI-12)](outputs/compareAccumDens_station_V3216_scale_6.jpg)
+![Comparison of accumulated precipitation (SPI-12)](outputs/compareAccumDens_station_V3216_scale_12.jpg)
 ##### SPI(24)
-![Comparison of accumulated precipitation (SPI-24)](outputs/compareAccumDens_station_V3216_scale_6.jpg)
+![Comparison of accumulated precipitation (SPI-24)](outputs/compareAccumDens_station_V3216_scale_24.jpg)
 </div>
