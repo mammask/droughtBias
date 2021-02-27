@@ -23,6 +23,9 @@ The codebase of the publication can be found in the `main.R` script. The support
 In the following sections we share analytical outputs that further support the experiments of the publication.
 
 ### Percentage of miss-classifications
+<img src="utputs/Transition_plot_spi3.jpg" width="425"/> <img src="utputs/Transition_plot_spi6.jpg" width="425"/> 
+
+
 ##### SPI(3)
 ![Miss-classifications (SPI-3)](outputs/Transition_plot_spi3.jpg)
 ##### SPI(6)
