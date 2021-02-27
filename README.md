@@ -63,7 +63,7 @@ In the following sections we share analytical outputs that further support the e
 ### Comparison between the densities of accumulated precipitation for basin S-3216
 
 ##### SPI(3)
-![Comparison of accumulated precipitation (SPI-3)](outputs/biasTrendGrowth_scale3.jpg)
+![Comparison of accumulated precipitation (SPI-3)](outputs/compareAccumDens_station_3357_scale_3.jpg)
 ##### SPI(6)
 ![Comparison of accumulated precipitation (SPI-6)](outputs/compareAccumDens_station_3357_scale_6.jpg)
 ##### SPI(9)
