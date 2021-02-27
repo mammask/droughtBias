@@ -31,12 +31,16 @@ In the following sections we share analytical outputs that further support the e
 
 ##### SPI(3)
 <img src="outputs/distribution_parameters3.jpg" width="450"/>
+
 ##### SPI(6)
 <img src="outputs/distribution_parameters6.jpg" width="450"/> 
+
 ##### SPI(9)
 <img src="outputs/distribution_parameters9.jpg" width="450"/>
+
 ##### SPI(12)
 <img src="outputs/distribution_parameters12.jpg" width="450"/> 
+
 ##### SPI(24)
 <img src="outputs/distribution_parameters24.jpg" width="450"/>
 
