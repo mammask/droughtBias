@@ -66,21 +66,31 @@ GenerateBoxPlotsPerClGradient = function(...){
   metrics = rbindlist(list(maper_Metrics3,maper_Metrics6,maper_Metrics9,
                            maper_Metrics12,maper_Metrics24))
   
-  metrics_T_TVT_STATION = base::merge(metrics,
-                                      koppen[,.(Station,MAINCLASS)],
-                                      by = "Station"
-  )
   
-  metrics_T_TVT_STATION[, Version := factor(Version, levels = c("SPI(3)","SPI(6)",
-                                                                "SPI(9)","SPI(12)",
-                                                                "SPI(24)"))]
-  metrics_T_TVT_STATION[, MAINCLASS := str_to_title(MAINCLASS)]
-  metrics_T_TVT_STATION[MAINCLASS == "Warm Temperate", MAINCLASS := "Warm \n Temperate"]
+  
+  basinsMap = st_as_sf(basins, quiet = TRUE)
+  basinsMap <- base::merge(basinsMap, metrics, by.x = "SUBIDnew",by.y = "Station")
+  basinsMap <- base::merge(basinsMap, koppen[,.(Station = Station,
+                                                `Köppen-Geiger class` = factor(str_to_title(MAINCLASS),
+                                                                         levels = c("Warm Temperate", "Snow", "Polar")),
+                                                Lat= Lat,
+                                                Lon = Lon
+  )
+  ],
+  by.x = "SUBIDnew",by.y = "Station")
+  
+  
+  setDT(basinsMap)
+  basinsMap[, Version := factor(Version, levels = c("SPI(3)","SPI(6)",
+                                                    "SPI(9)","SPI(12)",
+                                                    "SPI(24)"))]
+  
+  basinsMap[`Köppen-Geiger class` == "Warm Temperate", `Köppen-Geiger class` := "Warm \n Temperate"]
   
   print("Computing box plots per climatic gradient and spi scale")
-  p = ggplot(data = metrics_T_TVT_STATION[MAINCLASS != ""],aes(x = MAINCLASS, y = MAE_T_TVT)) +
+  p = ggplot(data = basinsMap[`Köppen-Geiger class` != ""],aes(x = `Köppen-Geiger class`, y = MAE_T_TVT)) +
     geom_boxplot() + facet_wrap(~Version, nrow = 1) + 
-    xlab("Koppen Class") +
+    xlab("Köppen-Geiger class") +
     ylab("MAD (per basin)") +
     theme_bw() + 
     theme(axis.text.x = element_text(size = 5),

@@ -50,27 +50,41 @@ In the following sections we share analytical outputs that further support the e
 ### Comparison of raw spi data for basin S-3216
 
 ##### SPI(3)
-![Comparison between spi raw data (SPI-3)](outputs/station_V3216_scale_3.jpg)
+![Comparison between spi raw data (SPI-3)](outputs/station_3357_scale_3.jpg)
 ##### SPI(6)
-![Comparison between spi raw data (SPI-6)](outputs/station_V3216_scale_6.jpg)
+![Comparison between spi raw data (SPI-6)](outputs/station_3357_scale_6.jpg)
 ##### SPI(9)
-![Comparison between spi raw data (SPI-9)](outputs/station_V3216_scale_9.jpg)
+![Comparison between spi raw data (SPI-9)](outputs/station_3357_scale_9.jpg)
 ##### SPI(12)
-![Comparison between spi raw data (SPI-12)](outputs/station_V3216_scale_12.jpg)
+![Comparison between spi raw data (SPI-12)](outputs/station_3357_scale_12.jpg)
 ##### SPI(24)
-![Comparison between spi raw data (SPI-24)](outputs/station_V3216_scale_24.jpg)
-</div>
+![Comparison between spi raw data (SPI-24)](outputs/station_3357_scale_24.jpg)
 
 ### Comparison between the densities of accumulated precipitation for basin S-3216
 
 ##### SPI(3)
-![Comparison of accumulated precipitation (SPI-3)](outputs/compareAccumDens_station_V3216_scale_3.jpg)
+![Comparison of accumulated precipitation (SPI-3)](outputs/biasTrendGrowth_scale3.jpg)
 ##### SPI(6)
-![Comparison of accumulated precipitation (SPI-6)](outputs/compareAccumDens_station_V3216_scale_6.jpg)
+![Comparison of accumulated precipitation (SPI-6)](outputs/compareAccumDens_station_3357_scale_6.jpg)
 ##### SPI(9)
-![Comparison of accumulated precipitation (SPI-9)](outputs/compareAccumDens_station_V3216_scale_9.jpg)
+![Comparison of accumulated precipitation (SPI-9)](outputs/compareAccumDens_station_3357_scale_9.jpg)
 ##### SPI(12)
-![Comparison of accumulated precipitation (SPI-12)](outputs/compareAccumDens_station_V3216_scale_12.jpg)
+![Comparison of accumulated precipitation (SPI-12)](outputs/compareAccumDens_station_3357_scale_12.jpg)
 ##### SPI(24)
-![Comparison of accumulated precipitation (SPI-24)](outputs/compareAccumDens_station_V3216_scale_24.jpg)
+![Comparison of accumulated precipitation (SPI-24)](outputs/compareAccumDens_station_3357_scale_24.jpg)
+
+
+### Relationship between the bias introduced to the training data and the change in the mean monthly precipitation
+
+##### SPI(3)
+![bias vs change in precipitation (SPI-3)](outputs/biasTrendGrowth_scale3.jpg)
+##### SPI(6)
+![bias vs change in precipitation (SPI-6)](outputs/biasTrendGrowth_scale6.jpg)
+##### SPI(9)
+![bias vs change in precipitation (SPI-9)](outputs/biasTrendGrowth_scale9.jpg)
+##### SPI(12)
+![bias vs change in precipitation (SPI-12)](outputs/biasTrendGrowth_scale12.jpg)
+##### SPI(24)
+![bias vs change in precipitation (SPI-24)](outputs/biasTrendGrowth_scale24.jpg)
+
 </div>

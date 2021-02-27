@@ -1,16 +1,27 @@
 CompareParameters = function(spiData, spiScales){
   
   print("Extracting parameter estimates")
-  parameters = copy(spiData[!is.na(p.value_T_TVT), rbindlist(parameters), by = basins])
+  parameters = copy(spiData[!is.na(p.value_T_TVT), rbindlist(parameters), by = updatedBasins])
+  parameters = parameters[updatedBasins %in% koppen[MAINCLASS != "", Station]]
+  
   mparameter = melt.data.table(data = parameters,
-                               id.vars = c("basins","Parameter","Description"),
+                               id.vars = c("updatedBasins","Parameter","Description"),
                                variable.name = "Month", value.name = "Estimate")
   
+  minalpha = mparameter[Parameter == "alpha" & Description != "SPI-TV", min(Estimate)]
+  maxalpha = mparameter[Parameter == "alpha" & Description != "SPI-TV", max(Estimate)]
+  
+  minbeta = mparameter[Parameter == "beta" & Description != "SPI-TV", min(Estimate)]
+  maxbeta = mparameter[Parameter == "beta" & Description != "SPI-TV", max(Estimate)]
+  
+  
   mparameter = dcast.data.table(data = mparameter,
-                                formula = "basins + Parameter + Month ~ Description",
+                                formula = "updatedBasins + Parameter + Month ~ Description",
                                 value.var = "Estimate", fun.aggregate = sum)
   print("Parameter estimates extracted successfully")
   print("Genarating comparison plots")
+  
+  
   p = ggplot(data = mparameter[Parameter == "alpha"]) + 
     geom_point(aes(x = `SPI-T`, y = `SPI-TVT`),size = 0.2, stroke = 0.1)+ 
     facet_wrap(~Month, nrow = 3) +
@@ -22,7 +33,10 @@ CompareParameters = function(spiData, spiScales){
           axis.title.x = element_text(size = 7),
           axis.title.y = element_text(size = 7),
           strip.text.x = element_text(size = 6)
-    )
+    ) +
+    xlim(c(minalpha, maxalpha)) + 
+    ylim(c(minalpha, maxalpha))
+  
   
   g = ggplot(data = mparameter[Parameter == "beta"]) + 
     geom_point(aes(x = `SPI-T`, y = `SPI-TVT`),size = 0.2, stroke = 0.1)+ 
@@ -36,7 +50,9 @@ CompareParameters = function(spiData, spiScales){
           axis.title.x = element_text(size = 7),
           axis.title.y = element_text(size = 7),
           strip.text.x = element_text(size = 6)
-    )
+    )+
+    xlim(c(minbeta, maxbeta)) + 
+    ylim(c(minbeta, maxbeta))
   
   pall = gridExtra::grid.arrange(p, g, ncol = 1)
   ggsave(plot = pall, filename = paste0("../outputs/distribution_parameters",spiScales,".jpg"),

@@ -1,8 +1,8 @@
-stationRawData = function(spiData, spiScales, stationId = "V3216"){
+stationRawData = function(spiData, spiScales, stationId = "335"){
   
   print(paste0("Extracting data for station ",stationId))
   # Obtain records for the specific station
-  stationRecords <- copy(spiData[spiScales == spiScales & basins == stationId][,rawSpi[[1]]])
+  stationRecords <- copy(spiData[spiScales == spiScales & updatedBasins == stationId][,rawSpi[[1]]])
   
   # Convert date to year month day format
   stationRecords[, Date:= as.Date(Date)]

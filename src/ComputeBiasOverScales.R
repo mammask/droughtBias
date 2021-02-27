@@ -16,6 +16,8 @@ ComputeBiasOverScales = function(...){
   
   # Compute the mean absolute error per basin
   maper_Metrics3 <- bias3[!is.na(p.value_T_TVT), rbindlist(rawSpi)]
+  maper_Metrics3 = maper_Metrics3[Station %in% koppen[MAINCLASS != "", Station]]
+  
   maper_Metrics3 <- maper_Metrics3[Status %in% c("Train")]
   maper_Metrics3 <-maper_Metrics3[complete.cases(maper_Metrics3)]
   
@@ -28,7 +30,8 @@ ComputeBiasOverScales = function(...){
   
   
   maper_Metrics6 <- bias6[!is.na(p.value_T_TVT), rbindlist(rawSpi)]
-  maper_Metrics6 <- maper_Metrics6[Status %in% c("Train")]
+  maper_Metrics6 = maper_Metrics6[Station %in% koppen[MAINCLASS != "", Station]]
+  
   maper_Metrics6 <-maper_Metrics6[complete.cases(maper_Metrics6)]
   
   metrics6_T_TVT <- maper_Metrics6[, .(Version = "SPI(6)",
@@ -40,6 +43,8 @@ ComputeBiasOverScales = function(...){
   ]
   
   maper_Metrics9 <- bias9[!is.na(p.value_T_TVT), rbindlist(rawSpi)]
+  maper_Metrics9 = maper_Metrics9[Station %in% koppen[MAINCLASS != "", Station]]
+  
   maper_Metrics9 <- maper_Metrics9[Status %in% c("Train")]
   maper_Metrics9 <-maper_Metrics9[complete.cases(maper_Metrics9)]
   
@@ -52,6 +57,8 @@ ComputeBiasOverScales = function(...){
   ]
   
   maper_Metrics12 <- bias12[!is.na(p.value_T_TVT), rbindlist(rawSpi)]
+  maper_Metrics12 = maper_Metrics12[Station %in% koppen[MAINCLASS != "", Station]]
+  
   maper_Metrics12 <- maper_Metrics12[Status %in% c("Train")]
   maper_Metrics12 <-maper_Metrics12[complete.cases(maper_Metrics12)]
   
@@ -65,6 +72,8 @@ ComputeBiasOverScales = function(...){
   
   
   maper_Metrics24 <- bias24[!is.na(p.value_T_TVT), rbindlist(rawSpi)]
+  maper_Metrics24 = maper_Metrics24[Station %in% koppen[MAINCLASS != "", Station]]
+  
   maper_Metrics24 <- maper_Metrics24[Status %in% c("Train")]
   maper_Metrics24 <-maper_Metrics24[complete.cases(maper_Metrics24)]
   
@@ -83,27 +92,40 @@ ComputeBiasOverScales = function(...){
                             metrics12_T_TVT,
                             metrics24_T_TVT))
   
-  filesToLoad <- list.files("../outputs/bias measurement/", pattern = "^spi")
+  
+  
+  
+  
+  
+  
+  
+  filesToLoad <- list.files("../outputs/", pattern = ".csv")
   comparisons <- list()
   for (i in filesToLoad){
-    comparisons <- append(comparisons, list(fread(paste0("../outputs/bias measurement/",i))))
+    comparisons <- append(comparisons, list(fread(paste0("../outputs/",i))))
   }
-  
+  # 
   comparisons <- rbindlist(comparisons)
-  setnames(comparisons,"MAINCLASS","Class")
-  comparisons <- comparisons[Class == "All"][order(Scale)]
-  comparisons <- merge(comparisons[,.(Scale, `% Basins T_TVT`,`% Records T_TVT`)], 
-                       overall[,.(Scale,MAPE_T_TVT,RMSE_T_TVT,MAE_T_TVT)], by = "Scale"
-  )
+  comparisons[, sum(Percentage), by = Scale]
+  comparisons = comparisons[, .(Metric = "%-miss-classifications", Value = sum(Percentage)), by = .(Scale)]
   
-  comparisons <- melt.data.table(comparisons,id.vars = "Scale",variable.name = "Metric",value.name = "Value")
+  overall <- melt.data.table(overall,id.vars = c("Version","Scale"),variable.name = "Metric",value.name = "Value")
   
-  comparisons[,Metric := gsub("_","",gsub("T_TVT","",Metric))]
-  comparisons[Metric == "MAE", Metric:= "MAD"]
-  comparisons[Metric == "RMSE", Metric:= "RMSD"]
-  comparisons[Metric == "MAPE", Metric:= "MAPD"]
+  overall[,Metric := gsub("_","",gsub("T_TVT","",Metric))]
+  overall[Metric == "MAE", Metric:= "MAD"]
+  overall[Metric == "RMSE", Metric:= "RMSD"]
+  overall[Metric == "MAPE", Metric:= "MAPD"]
   
-  pp3 <- ggplot(data = comparisons[Metric == "MAD"], aes(x = Scale, y = Value, group = Metric)) + 
+  
+  # setnames(comparisons,"MAINCLASS","Class")
+  # comparisons <- comparisons[Class == "All"][order(Scale)]
+  # comparisons <- merge(comparisons[,.(Scale, `% Basins T_TVT`,`% Records T_TVT`)], 
+  #                      overall[,.(Scale,MAPE_T_TVT,RMSE_T_TVT,MAE_T_TVT)], by = "Scale"
+  # )
+  
+  
+  
+  pp3 <- ggplot(data = overall[Metric == "MAD"], aes(x = Scale, y = Value, group = Metric)) + 
     geom_point(aes(x = Scale, y = Value), size = 0.5) + 
     geom_line(aes(linetype = Metric),size = 0.5) + 
     scale_linetype_manual(name = "Metric", values = c(1)) +
@@ -125,7 +147,7 @@ ComputeBiasOverScales = function(...){
   
   comparisons[Metric == "% Records ", Metric := "% Miss-classification"]
   
-  pp4 <- ggplot(data = comparisons[Metric == "% Miss-classification"], aes(x = Scale, y = Value, group = Metric)) + 
+  pp4 <- ggplot(data = comparisons, aes(x = Scale, y = Value, group = Metric)) + 
     geom_point(aes(x = Scale, y = Value), size = 0.5) + 
     geom_line(aes(linetype = Metric),size = 0.5) + 
     scale_linetype_manual(name = "Metric", values = c(1)) +

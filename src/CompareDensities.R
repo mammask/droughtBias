@@ -1,7 +1,7 @@
 CompareDensities = function(spiData, spiScales, stationId){
   
   print("Generating accumulated densities")
-  records = copy(spiData[basins == stationId, rawSpi[[1]]])
+  records = copy(spiData[updatedBasins == stationId, rawSpi[[1]]])
   
   records[, Year := year(Date)]
   records[, Month := month(Date)]
@@ -16,7 +16,7 @@ CompareDensities = function(spiData, spiScales, stationId){
   prcp_TVT[, MonthAbb :=month.abb[Month]]
   rm(records)
   
-  records_train = copy(spiData[basins == stationId, rawSpi[[1]]])[Status == "Train"]
+  records_train = copy(spiData[updatedBasins == stationId, rawSpi[[1]]])[Status == "Train"]
   records_train[, Year := year(Date)]
   records_train[, Month := month(Date)]
   records_train[, Date :=as.yearmon(Date)]

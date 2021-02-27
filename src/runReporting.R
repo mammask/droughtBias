@@ -13,7 +13,7 @@ source("../src/CompareDensities.R")
 source("../src/ComputeBiasOverScales.R")
 source("../src/GenerateSpatialMissClass.R")
 source("../src/GenerateBoxPlotPerClGr.R")
-
+source("../src/GenerateBiasTrendGrowth.R")
 
 # Set parameters
 spiScales = config[['scale']][['spiScales']]
@@ -24,12 +24,12 @@ saveOutputs = config[['scenario']][["saveOutputs"]]
 koppen = fread("../data/mapper_sweden_Koppen.csv")
 koppen = koppen[is.na(GRIDCODE), GRIDCODE:= 0]
 koppen[GRIDCODE == 42, GRIDCODE := 43]
-koppen[, Station := paste0("V",OBJECTID)]
-
+koppen[, Station := as.character(SUBIDnew)]
 
 # Load Basins locations
-basins = fread("../data/mapper_sweden.csv")
-basins[, Station:= paste0("V",OBJECTID)]
+basins = readOGR("c:/Users/komammas.EUROPE/Downloads/drive-download-20210222T094357Z-001/SHYPE2012_version_1_2_0_polygons_smallglomma_wgs84.dbf")
+# setDT(basins)
+# basins[, Station := as.character(SUBIDnew) ]
 
 # Generate Plots with spatial descriptives -------------------------------------
 
@@ -41,6 +41,7 @@ t = system.time({
   )
   setDT(spiData)
 })
+
 print(paste0("Metadata loaded in ",t[[3]]," seconds."))
 
 if (config[["plots"]][["spatialDescriptives"]] == TRUE){
@@ -60,7 +61,7 @@ if (config[["plots"]][["compareStatioRawData"]] == TRUE){
 }
 
 if (config[["plots"]][["compareDensities"]] == TRUE){
- CompareDensities(spiData, spiScales, stationId = config[["station"]][["stationId"]])
+  CompareDensities(spiData, spiScales, stationId = config[["station"]][["stationId"]])
 }
 
 if (config[["plots"]][["biasOverScales"]] == TRUE){
@@ -71,4 +72,8 @@ if (config[["plots"]][["spatialMissclassifications"]] == TRUE){
 }
 if (config[["plots"]][["boxplotClimateRegions"]] == TRUE){
   GenerateBoxPlotsPerClGradient()
+}
+
+if (config[["plots"]][["BiasTrendGrowth"]] == TRUE){
+  BiasTrendGrowth(spiData, spiScales)
 }

@@ -1,7 +1,9 @@
 GenerateMissclassifications = function(spiData, spiScales){
   
   print("Generating miss-classifications")
-  transitions = copy(spiData[!is.na(p.value_T_TVT), rbindlist(transitions_T_TVT), by = .(basins)])
+  transitions = copy(spiData[!is.na(p.value_T_TVT), rbindlist(transitions_T_TVT), by = .(updatedBasins)])
+  transitions = transitions[updatedBasins %in% koppen[MAINCLASS != "", Station]]
+  
   transitions = transitions[, .(Transitions = sum(N)), by = .(`SPI-T-Class`,`SPI-TVT-Class`)]
   transitions[, Percentage := round(100*Transitions/sum(Transitions),2)]
   transitions = transitions[`SPI-T-Class`!=`SPI-TVT-Class`]
@@ -12,6 +14,8 @@ GenerateMissclassifications = function(spiData, spiScales){
   transitions[, `SPI-TVT-Class` := factor(`SPI-TVT-Class`, levels = c("Extremely Wet","Very Wet","Moderately Wet","Near Normal",
                                                                       "Moderately Dry", "Very Dry", "Extremely Dry"
   ))]
+  transitions[, Scale:= spiScales]
+  fwrite(transitions, paste0("../outputs/transitions_spi",spiScales,".csv"), row.names = FALSE)
   
   print("Miss-classifications generated successfully")
   print("Generating miss-classifications plot")

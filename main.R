@@ -20,11 +20,14 @@ Description of Koppen Classification:
 rm(list = ls())
 
 # Load configurations ---------------------------------------------------------
-# install.packages("checkpoint")
-# library(checkpoint)
-
-# checkpoint("2020-12-11")
-# install.packages("configr")
+library(tmap)
+library(data.table)
+library(ggplot2)
+library(configr)
+library(rgdal)
+library(sf)
+library(RColorBrewer)
+library(foreign)
 
 # Load configuration files
 config = configr::read.config(file = "config.cfg")
@@ -33,7 +36,13 @@ config = configr::read.config(file = "config.cfg")
 lapply(config$dependencies$libraries, require, character.only = TRUE)
 
 # Load source functions
-sapply(paste0("src/",list.files("src/")), source)
+sourceFunctions = paste0("src/",list.files("src/"))
+for (i in sourceFunctions){
+  if (i == "src/runReporting.R"){
+    next 
+  }
+  source(i)
+}
 
 # Set parameters
 spiScales = config[['scale']][['spiScales']]
@@ -44,38 +53,38 @@ saveOutputs = config[['scenario']][["saveOutputs"]]
 koppen = fread("data/mapper_sweden_Koppen.csv")
 koppen = koppen[is.na(GRIDCODE), GRIDCODE:= 0]
 koppen[GRIDCODE == 42, GRIDCODE := 43]
+koppen = koppen[MAINCLASS !=""]
 
 # Load Basins locations
-basin_locations = fread("data/mapper_sweden.csv")
-basin_locations[, Station:= paste0("V",OBJECTID)]
+basin_locations = read.dbf("c:/Users/komammas.EUROPE/Downloads/drive-download-20210222T094357Z-001/SHYPE2012_version_1_2_0_polygons_smallglomma_wgs84.dbf")
+setDT(basin_locations)
+basin_locations[, SUBIDnew := as.character(SUBIDnew) ]
 
 # Load rainfall records
-dtr = fread("data/Pobs.txt", skip = 1)
-setnames(dtr, "V1", "Date")
+dtr = fread("c:/Users/komammas.EUROPE/Downloads/Pobs.txt", skip = 0)
+setnames(dtr, "date","Date")
 
 # Define date formats
 dtr[, Date:= as.Date(Date, format = "%Y-%m-%d")]
 
 # Obtain the list of the basins
-basins = names(dtr)[!names(dtr) %in% "Date"]
-
-# Update names to match with kopen file
-updatedBasins = paste0("V",1:length(basins))
-setnames(dtr, c("Date",updatedBasins))
+updatedBasins = names(dtr)[!names(dtr) %in% "Date"]
 
 # Generate combinations of scales and basins 
-combinations = data.table::CJ(spiScales, basins, unique = T, sorted = T)
+combinations = data.table::CJ(spiScales, updatedBasins, unique = T, sorted = T)
 
 # Obtain Kopen Class in combinations Set
-koppen[, basins := paste0("V",OBJECTID)]
-combinations = base::merge(combinations, koppen[,.(basins,GRIDCODE)], by = "basins")
+koppen[, basins := as.character(SUBIDnew)]
+combinations = base::merge(combinations, koppen[,.(basins,GRIDCODE)],
+                           by.x = "updatedBasins",
+                           by.y = "basins")
 
 # Obtain bias measure ------------------------------------------------#
 if (measureBias == T){
   tt = system.time({
   pb = txtProgressBar(min = 0, max = combinations[,.N], style = 3)
   results =   combinations[, {setTxtProgressBar(pb, .GRP);
-                              total = BiasMeasurement(StationId = basins,
+                              total = BiasMeasurement(StationId = updatedBasins ,
                                                       ScaleId   = spiScales,
                                                       dtr       = dtr);
                               .(rawSpi        = list(total[[1]]),
@@ -89,7 +98,7 @@ if (measureBias == T){
                                 recordsTrainingSet  = total[[9]],
                                 transitions_T_TVT_year = list(total[[10]])
                                 )},
-                            by = .(spiScales,basins, GRIDCODE)
+                            by = .(spiScales,updatedBasins, GRIDCODE)
                             ]
     
 
