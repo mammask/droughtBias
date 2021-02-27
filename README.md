@@ -23,34 +23,22 @@ The codebase of the publication can be found in the `main.R` script. The support
 In the following sections we share analytical outputs that further support the experiments of the publication.
 
 ### Percentage of miss-classifications
-<img src="outputs/Transition_plot_spi3.jpg" width="500"/> <img src="outputs/Transition_plot_spi6.jpg" width="500"/> 
-<img src="outputs/Transition_plot_spi9.jpg" width="500"/> <img src="outputs/Transition_plot_spi12.jpg" width="500"/> 
-<img src="outputs/Transition_plot_spi24.jpg" width="500"/>
-
-
-##### SPI(3)
-![Miss-classifications (SPI-3)](outputs/Transition_plot_spi3.jpg)
-##### SPI(6)
-![Miss-classifications (SPI-6)](outputs/Transition_plot_spi6.jpg)
-##### SPI(9)
-![Miss-classifications (SPI-9)](outputs/Transition_plot_spi9.jpg)
-##### SPI(12)
-![Miss-classifications (SPI-12)](outputs/Transition_plot_spi12.jpg)
-##### SPI(24)
-![Miss-classifications (SPI-24)](outputs/Transition_plot_spi24.jpg)
+<img src="outputs/Transition_plot_spi3.jpg" width="450"/> <img src="outputs/Transition_plot_spi6.jpg" width="450"/> 
+<img src="outputs/Transition_plot_spi9.jpg" width="450"/> <img src="outputs/Transition_plot_spi12.jpg" width="450"/> 
+<img src="outputs/Transition_plot_spi24.jpg" width="450"/>
 
 ### Comparison of distribution parameter estimates
 
 ##### SPI(3)
-![Comparison of distribution parameter estimates (SPI-3)](outputs/distribution_parameters3.jpg)
+<img src="outputs/distribution_parameters3.jpg" width="450"/>
 ##### SPI(6)
-![Comparison of distribution parameter estimates (SPI-6)](outputs/distribution_parameters6.jpg)
+<img src="outputs/distribution_parameters6.jpg" width="450"/> 
 ##### SPI(9)
-![Comparison of distribution parameter estimates (SPI-9)](outputs/distribution_parameters9.jpg)
+<img src="outputs/distribution_parameters9.jpg" width="450"/>
 ##### SPI(12)
-![Comparison of distribution parameter estimates (SPI-12)](outputs/distribution_parameters12.jpg)
+<img src="outputs/distribution_parameters12.jpg" width="450"/> 
 ##### SPI(24)
-![Comparison of distribution parameter estimates (SPI-24)](outputs/distribution_parameters24.jpg)
+<img src="outputs/distribution_parameters24.jpg" width="450"/>
 
 ### Comparison of raw spi data for basin S-3216
 
