@@ -46,16 +46,9 @@ In the following sections we share analytical outputs that further support the e
 
 ### Comparison of raw spi data for basin S-3216
 
-##### SPI(3)
-![Comparison between spi raw data (SPI-3)](outputs/station_3357_scale_3.jpg)
-##### SPI(6)
-![Comparison between spi raw data (SPI-6)](outputs/station_3357_scale_6.jpg)
-##### SPI(9)
-![Comparison between spi raw data (SPI-9)](outputs/station_3357_scale_9.jpg)
-##### SPI(12)
-![Comparison between spi raw data (SPI-12)](outputs/station_3357_scale_12.jpg)
-##### SPI(24)
-![Comparison between spi raw data (SPI-24)](outputs/station_3357_scale_24.jpg)
+<img src="outputs/station_3357_scale_3.jpg" width="450"/> <img src="outputs/station_3357_scale_6.jpg" width="450"/> 
+<img src="outputs/station_3357_scale_9.jpg" width="450"/> <img src="outputs/station_3357_scale_12.jpg" width="450"/> 
+<img src="outputs/station_3357_scale_24.jpg" wi24th="450"/>
 
 ### Comparison between the densities of accumulated precipitation for basin S-3216
 
