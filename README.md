@@ -1,11 +1,11 @@
 <div style="text-align: justify">
-This is a repository with codebase and results of the publication: "A Note on the Bias During Model-Validation in Drought Forecasting Applications"
+This is a repository with codebase and results of the publication: "Characterization of Bias During Meteorological Drought Calculation in Time Series Out-of-Sample Validation"
 
 <hr>
 
 #### Abstract
 
-The Standardized Precipitation Index (SPI) is used for characterizing meteorological droughts on a range of time scales. When SPI is computed on the entire available dataset, which methodologically neglects model-validation, biases are introduced in both the training and validation sets. Here, we investigate the theoretical and numerical implications that arise when SPI is computed using the entire dataset, prior to model-validation. Our results indicate that SPI leads to increased information leakage to the training set with increased scales, which significantly affects the characterisation of drought severity. In Sweden the change in precipitation over the historical period can lead to miss-classifications of about 21% of drought events in the training set. The SPI bias also varies along the climatic gradient with warmer climates being more affected. This concludes that drought assessments under changing climatic conditions can be influenced by the potential misuse of SPI inducing bias in the future predictions.
+The Standardized Precipitation Index (SPI) is used for characterizing and predicting meteorological droughts on a range of time scales. However, in     forecasting applications, when SPI is computed on the entire available dataset, prior to model-validation, significant biases are introduced, \KM{especially under changing climatic conditions}. In this paper, we investigate the theoretical and numerical implications that arise when SPI is computed under stationary and non-stationary probability distributions. We demonstrate that both the stationary SPI and non-stationary SPI (NSPI) lead to increased information leakage to the training set with increased scales, which significantly affects the characterisation of drought severity. The analysis is performed across about 36,500 basins in Sweden, and indicates that the  stationary SPI is unable to capture the increased rainfall trend during the last decades and leads to systematic underestimation of wet events in the training set, affecting up to \KM{22\%} of the drought events. NSPI captures the non-stationary characteristics of accumulated rainfall; however it introduces biases to the training data affecting 19\% of the drought events. The variability of NSPI bias has also been observed along the country's climatic gradient with regions in snow climates strongly being affected. The findings propose that drought assessments under changing climatic conditions can be significantly influenced by the potential misuse of both SPI and NSPI, inducing bias in the characterization of drought events in the training data.
 <hr>
 
 #### How to use the code
@@ -17,56 +17,3 @@ The codebase of the publication can be found in the `main.R` script. The support
 3. Under `/scr` run `runReporting.R`
 
 **Important Note**: The available data has been provided by SMHI, therefore they are not available in this repository.
-
-
-<hr>
-In the following sections we share analytical outputs that further support the experiments of the publication.
-
-### Percentage of miss-classifications
-<img src="outputs/Transition_plot_spi3.jpg" width="450"/> <img src="outputs/Transition_plot_spi6.jpg" width="450"/> 
-<img src="outputs/Transition_plot_spi9.jpg" width="450"/> <img src="outputs/Transition_plot_spi12.jpg" width="450"/> 
-<img src="outputs/Transition_plot_spi24.jpg" width="450"/>
-
-### Comparison of distribution parameter estimates
-
-##### SPI(3)
-<img src="outputs/distribution_parameters3.jpg" width="450"/>
-
-##### SPI(6)
-<img src="outputs/distribution_parameters6.jpg" width="450"/> 
-
-##### SPI(9)
-<img src="outputs/distribution_parameters9.jpg" width="450"/>
-
-##### SPI(12)
-<img src="outputs/distribution_parameters12.jpg" width="450"/> 
-
-##### SPI(24)
-<img src="outputs/distribution_parameters24.jpg" width="450"/>
-
-### Comparison of raw spi data for basin S-3216
-
-<img src="outputs/station_3357_scale_3.jpg" width="450"/> <img src="outputs/station_3357_scale_6.jpg" width="450"/> 
-<img src="outputs/station_3357_scale_9.jpg" width="450"/> <img src="outputs/station_3357_scale_12.jpg" width="450"/> 
-<img src="outputs/station_3357_scale_24.jpg" wi24th="450"/>
-
-### Comparison between the densities of accumulated precipitation for basin S-3216
-
-<img src="outputs/compareAccumDens_station_3357_scale_3.jpg" width="450"/> <img src="outputs/compareAccumDens_station_3357_scale_6.jpg" width="450"/> 
-<img src="outputs/compareAccumDens_station_3357_scale_9.jpg" width="450"/> <img src="outputs/compareAccumDens_station_3357_scale_12.jpg" width="450"/> 
-<img src="outputs/compareAccumDens_station_3357_scale_24.jpg" width="450"/>
-
-### Relationship between the bias introduced to the training data and the change in the mean monthly precipitation
-
-##### SPI(3)
-![bias vs change in precipitation (SPI-3)](outputs/biasTrendGrowth_scale3.jpg)
-##### SPI(6)
-![bias vs change in precipitation (SPI-6)](outputs/biasTrendGrowth_scale6.jpg)
-##### SPI(9)
-![bias vs change in precipitation (SPI-9)](outputs/biasTrendGrowth_scale9.jpg)
-##### SPI(12)
-![bias vs change in precipitation (SPI-12)](outputs/biasTrendGrowth_scale12.jpg)
-##### SPI(24)
-![bias vs change in precipitation (SPI-24)](outputs/biasTrendGrowth_scale24.jpg)
-
-</div>

@@ -16,42 +16,43 @@ GetDroughtIndexParams <- function(Date,y,d.freq, d.index, d.scale){
   return(dIndex)
 }
 
-classSPI <- function(x){
+classSPI = function(x){
+  
+  
   
   if (is.na(x)){
-
+    
     type = as.character(NA)
-
-  } else if (x > 2){
     
-    type <- "Extremely Wet"
+  } else if (round(x,1) >= 2){
     
-  } else if (x > 1.5 & x < 1.99){
+    type = "Extremely Wet"
     
-    type <- "Very Wet"
+  } else if (round(x,1) >= 1.5 & round(x,1) <= 1.99){
     
-  } else if (x > 1.0 & x < 1.49){
+    type = "Very Wet"
     
-    type <- "Moderately Wet"
+  } else if (round(x,1) >= 1.0 & round(x,1) <= 1.49){
     
-  } else if (x > -0.99 & x < 0.99){
+    type = "Moderately Wet"
+    
+  } else if (round(x,1) >= -0.99 & round(x,1) <= 0.99){
     
     type = "Near Normal"
     
-  } else if (x > -1.49 &  x < -1){
-    
+  } else if (round(x,1) >= -1.49 &  round(x,1) <= -1.0){
     
     type = "Moderately Dry"
     
-  } else if (x > -1.99 & x -1.5){
+  } else if (round(x,1) >= -1.99 & round(x,1) <= -1.5){
     
     type = "Very Dry"
     
-  } else if (x < -0.2){
+  } else if (round(x,1) <= -2){
     
     type = "Extremely Dry"
     
-  } 
-
+  }
+  
   return(type)
 }
