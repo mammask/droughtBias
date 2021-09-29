@@ -36,7 +36,7 @@ basins = readOGR("c:/Users/komammas.EUROPE/Downloads/drive-download-20210222T094
 # Loading metadata
 print("Loading metadata")
 t = system.time({
-  spiData = readRDS(paste0("../outputs/bias measurement/training_bias_",
+  spiData = readRDS(paste0("../outputs/bias measurement/",config[['distribution']],"_training_bias_",
                            config[["scale"]],".RDS")
   )
   setDT(spiData)

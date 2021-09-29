@@ -41,7 +41,7 @@ allDist[Status != 'Train' & Distribution == 'Non-stationary SPI', .(MEAN = mean(
 p2 <- ggplot(allDist[complete.cases(allDist)][Status %in% c("Train")]) +
   geom_line(aes(x = Date, y = `SPI-TVT`), size = 0.2, color = "red") +
   geom_line( aes(x = Date, y = `SPI-T`, size = 1), color = "black", size = 0.2) +
-  ylab(paste0("SPI(",spiScales,")"))+ theme_light() +
+  ylab(paste0("SPI-",spiScales,""))+ theme_light() +
   theme(axis.text.x = element_text(size = 8),
         axis.text.y = element_text(size = 8),
         axis.title.x = element_text(size = 8),

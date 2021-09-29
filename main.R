@@ -86,17 +86,17 @@ if (measureBias == T){
   results =   combinations[, {setTxtProgressBar(pb, .GRP);
                               total = BiasMeasurement(StationId = updatedBasins ,
                                                       ScaleId   = spiScales,
-                                                      dtr       = dtr);
+                                                      dtr       = dtr,
+                                                      distribution = config[['distribution']],
+                                                      method = config[['method']]);
                               .(rawSpi        = list(total[[1]]),
                                 parameters    = list(total[[2]]),
-                                p.value_T_TVT    = total[[3]],
-                                p.value_T_TV     = total[[4]],
-                                transitions_T_TVT   = list(total[[5]]),
-                                transitions_T_TV    = list(total[[6]]),
-                                switchedClasses_T_TVT = total[[7]],
-                                switchedClasses_T_TV = total[[8]],
-                                recordsTrainingSet  = total[[9]],
-                                transitions_T_TVT_year = list(total[[10]])
+                                transitions_T_TVT   = list(total[[3]]),
+                                transitions_T_TV    = list(total[[4]]),
+                                switchedClasses_T_TVT = total[[5]],
+                                switchedClasses_T_TV = total[[6]],
+                                recordsTrainingSet  = total[[7]],
+                                transitions_T_TVT_year = list(total[[8]])
                                 )},
                             by = .(spiScales,updatedBasins, GRIDCODE)
                             ]
@@ -107,7 +107,7 @@ if (measureBias == T){
   paste0("Bias measured in ",round(tt[[3]],2), " seconds")
   if (saveOutputs == T){
     # Saving analytical results
-    saveRDS(results, paste0("outputs/bias measurement/training_bias_",spiScales,".RDS"))
+    saveRDS(results, paste0("outputs/bias measurement/",config[['distribution']],"_training_bias_",spiScales,".RDS"))
   }
 
 }

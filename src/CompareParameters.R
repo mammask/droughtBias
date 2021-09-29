@@ -1,4 +1,4 @@
-CompareParameters = function(spiData, spiScales){
+CompareParameters = function(spiData, spiScales, distribution){
   
   print("Extracting parameter estimates")
   parameters = copy(spiData[!is.na(p.value_T_TVT), rbindlist(parameters), by = updatedBasins])

@@ -1,7 +1,7 @@
 GenerateMissclassifications = function(spiData, spiScales){
   
   print("Generating miss-classifications")
-  transitions = copy(spiData[!is.na(p.value_T_TVT), rbindlist(transitions_T_TVT), by = .(updatedBasins)])
+  transitions = copy(spiData[, rbindlist(transitions_T_TVT), by = .(updatedBasins)])
   transitions = transitions[updatedBasins %in% koppen[MAINCLASS != "", Station]]
   
   transitions = transitions[, .(Transitions = sum(N)), by = .(`SPI-T-Class`,`SPI-TVT-Class`)]
@@ -15,7 +15,7 @@ GenerateMissclassifications = function(spiData, spiScales){
                                                                       "Moderately Dry", "Very Dry", "Extremely Dry"
   ))]
   transitions[, Scale:= spiScales]
-  fwrite(transitions, paste0("../outputs/transitions_spi",spiScales,".csv"), row.names = FALSE)
+  fwrite(transitions, paste0("../outputs/",config[['distribution']],"_transitions_spi",spiScales,".csv"), row.names = FALSE)
   
   print("Miss-classifications generated successfully")
   print("Generating miss-classifications plot")
@@ -38,7 +38,7 @@ GenerateMissclassifications = function(spiData, spiScales){
     ) +
     geom_abline(intercept =0 , slope = 1, color = "red")
   
-  ggsave(filename = paste0("../outputs/Transition_plot_spi",spiScales,".jpg"),
+  ggsave(filename = paste0("../outputs/",config[["distribution"]],"_Transition_plot_spi",spiScales,".jpg"),
          plot = p,
          units="cm",
          width=14.5,

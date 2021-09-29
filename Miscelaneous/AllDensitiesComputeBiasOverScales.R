@@ -84,7 +84,7 @@ overallTransitions[, Distribution := factor(Distribution, levels = c("SPI","NSPI
 p2 = ggplot(data = overallTransitions) + geom_line(aes(x = spiScales, y = Percentage, color = Distribution), size = 0.5) +
   geom_point(aes(x = spiScales, y = Percentage, color = Distribution), size = 0.5) +
   # facet_grid(~Metric) +
-  theme_bw() + xlab("SPI Scale") + ylab("% Miss-classifications") +
+  theme_bw() + xlab("SPI Scale") + ylab("% class-transitions") +
   theme(
     legend.key.width = unit(0.1, "cm"), 
     legend.key.height = unit(0.1, "cm"),

@@ -52,7 +52,7 @@ stationRawData = function(spiData, spiScales, stationId = "335"){
     coord_cartesian(xlim=c(stationRecords[Status %in% c("Train"),Date[50]],
                            stationRecords[Status %in% c("Train"),Date[80]]),
                     ylim=c(-1.5,1)) + 
-    ylab(paste0("SPI(",spiScales,")"))+ theme_light() +
+    ylab(paste0("SPI-",spiScales,""))+ theme_light() +
     theme(axis.text.x = element_text(size = 8),
           axis.text.y = element_text(size = 8),
           axis.title.x = element_text(size = 8),
